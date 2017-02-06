@@ -1,0 +1,31 @@
+{
+  "entry": "src/index.js",
+  "proxy": {
+      "/api/**": {
+          "target": {
+              "host": "music.163.com",
+              "protocol": "http:",
+              "port": 80
+          },
+          "ignorePath": false,
+          "changeOrigin": true,
+          "secure": false,
+          "headers": {
+              "Referer": "http://music.163.com"
+          }
+      }
+  },
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr",
+        "transform-runtime"
+      ]
+    },
+    "production": {
+      "extraBabelPlugins": [
+        "transform-runtime"
+      ]
+    }
+  }
+}
