@@ -9,7 +9,11 @@ export default {
 
   state: {
     details: [],
-    searchSongs: []
+    isShowSearchResult: false,
+    search:{
+      results:[],
+      keyword:''
+    }
   },
 
   subscriptions: {
@@ -19,6 +23,12 @@ export default {
   },
 
   effects: {
+    /**
+     * 获取多首歌曲详情
+     * @param ids
+     * @param call
+     * @param put
+     */
     *getSongDetails({payload:{ids}}, {call, put}) {  // eslint-disable-line
       const data = call(songService.getSongDetails, ids);
       let details = data.data.songs;
@@ -30,6 +40,12 @@ export default {
         }
       });
     },
+    /**
+     * 搜索歌曲
+     * @param payload 对象，属性参见songService.search方法所接收参数
+     * @param call
+     * @param put
+     */
     *search({payload}, {call, put}){
       const data = call(songService.search, {...payload});
       let searchSongs = data.data.result.songs;

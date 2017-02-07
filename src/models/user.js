@@ -24,6 +24,14 @@ export default {
   },
 
   effects: {
+    /**
+     * 获取用户歌单列表
+     * @param limit
+     * @param offset
+     * @param call
+     * @param put
+     * @param select
+     */
     *getPlayLists({payload:{limit, offset}}, {call, put, select}) {  // eslint-disable-line
       let uid = yield select(state => state.user.userId);
       const data = yield call(userService.getPlayLists, {uid, limit, offset});
@@ -35,6 +43,12 @@ export default {
         }
       });
     },
+    /**
+     * 获取歌单详情
+     * @param id
+     * @param call
+     * @param put
+     */
     *getPlayListDetail({payload:{id}}, {call, put}){
       const data = yield call(userService.getPlayListDetail, id);
       const playListDetail = data.data.result;
