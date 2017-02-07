@@ -1,4 +1,4 @@
-import * as userService from '../services/user';
+import * as userService from "../services/user";
 
 export default {
 
@@ -6,14 +6,15 @@ export default {
 
   state: {
     userId: '77680183',
-    playList: [],
-    playListDetail: {}
+    playLists: [],
+    playListDetail: {},
+    selectedPlayListId: ''
   },
 
   subscriptions: {
     setup({dispatch, history}) {  // eslint-disable-line
       return history.listen(({pathname, query}) => {
-        if (pathname === '/') {
+        if (pathname === '/app') {
           dispatch({
             type: 'getPlayLists',
             payload: query
@@ -32,16 +33,19 @@ export default {
      * @param put
      * @param select
      */
-    *getPlayLists({payload:{limit, offset}}, {call, put, select}) {  // eslint-disable-line
+      *getPlayLists({payload:{limit, offset}}, {call, put, select}) {  // eslint-disable-line
       let uid = yield select(state => state.user.userId);
       const data = yield call(userService.getPlayLists, {uid, limit, offset});
-      const playlist = data.data.playlist;
+      const playLists = data.data.playlist;
       yield put({
         type: 'save',
         payload: {
-          playlist
+          playLists
         }
       });
+      yield put({
+        type: 'setSelectedPlayListId'
+      })
     },
     /**
      * 获取歌单详情
@@ -49,7 +53,7 @@ export default {
      * @param call
      * @param put
      */
-    *getPlayListDetail({payload:{id}}, {call, put}){
+      *getPlayListDetail({payload:{id}}, {call, put}){
       const data = yield call(userService.getPlayListDetail, id);
       const playListDetail = data.data.result;
       yield put({
@@ -66,6 +70,10 @@ export default {
     save(state, action) {
       return {...state, ...action.payload};
     },
+    setSelectedPlayListId(state, action){
+      let selectedPlayListId = action.payload && action.payload.id ? action.payload.id : state.playLists[0].id;
+      return {...state, selectedPlayListId}
+    }
   },
 
 };
