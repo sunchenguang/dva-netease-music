@@ -9,6 +9,7 @@ import AppDumb from "../components/App";
 function mapStateToProps(state) {
   return {
     ...state.user,
+    ...state.songs
     // details: state.songs.details
   }
 }

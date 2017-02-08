@@ -1,10 +1,12 @@
-import dva from 'dva';
-import './index.css';
+import dva from "dva";
+import "./index.css";
 
 // 1. Initialize
 const app = dva();
 
 app.model(require("./models/user"));
+app.model(require("./models/songs"));
+app.model(require("./models/player"));
 
 // 2. Plugins
 // app.use({});

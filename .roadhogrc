@@ -11,7 +11,8 @@
           "changeOrigin": true,
           "secure": false,
           "headers": {
-              "Referer": "http://music.163.com"
+              "Referer": "http://music.163.com",
+              "Cookie": "appver=1.5.0.75771"
           }
       }
   },

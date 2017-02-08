@@ -12,8 +12,9 @@ export default {
     trackInfo: {
       imgSrc: '',
       name: '',
-      artistName: '',
-      type: ''
+      artist: '',
+      type: '',
+      mp3Url: ''
     },
     currentSong: {
       isPlaying: false,
@@ -34,13 +35,41 @@ export default {
   },
 
   effects: {
+    * selectSearchResult({payload}, {call, put, select}){
+      yield put({
+        type: 'songs/getSongDetails',
+        payload: {
+          ids: payload.result.id
+        }
+      });
+      let songs = yield select(state => state.songs.details);
+      let song = songs[0];
 
+      yield put({
+        type: 'save',
+        payload: {
+          selectedTrack: song,
+          trackInfo: {
+            imgsrc: song.album.picUrl,
+            name: song.name,
+            artist: song.artists.map(artist => artist.name).join(","),
+            type: "单曲",
+            mp3Url: song.mp3Url
+          }
+        }
+      })
+
+    }
   },
 
   reducers: {
     save(state, action) {
       return {...state, ...action.payload};
     },
+    // setCurrentTrack(state, action){
+    //
+    // }
+
   },
 
 };
