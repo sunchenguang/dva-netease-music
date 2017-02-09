@@ -18,7 +18,7 @@ export default {
           dispatch({
             type: 'getPlayLists',
             payload: query
-          })
+          });
         }
       })
     },

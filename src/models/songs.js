@@ -2,6 +2,24 @@
  * Created by 80920 on 2017/2/6.
  */
 import * as songService from "../services/songs";
+import {delay} from "../utils/sagaHelper";
+
+function* handleInput(keyword, put) {
+  yield call(delay, 500);
+
+  if (keyword.length === 0) {
+    return false;
+  }
+
+  yield put({
+    type: 'search',
+    payload: {
+      keyword
+    }
+  });
+
+}
+const watcher = {type: 'watcher'};
 
 export default {
 
@@ -45,42 +63,64 @@ export default {
      * @param payload 对象，属性参见songService.search方法所接收参数
      * @param call
      * @param put
+     * @param select
      */
-      * search({payload}, {call, put}){
+      * search({payload}, {call, put, select}){
       const data = yield call(songService.search, {...payload});
       let results = data.data.result.songs;
+      let search = yield select(state => state.songs.search);
       yield put({
         type: 'save',
         payload: {
           search: {
+            ...search,
             results
           }
         }
-      })
+      });
     },
-    * changeKeyword({payload}, {call, put}){
-      let keyword = payload.keyword;
-
+    * changeKeyword({payload}, {call, put, select}){
+      let keyword = payload.keyword.trim();
+      let isShowSearchResult = keyword.length > 0;
+      let search = yield select(state => state.songs.search);
 
       yield put({
         type: 'save',
         payload: {
           search: {
-            keyword
+            ...search,
+            keyword,
+            isShowSearchResult,
+            results: isShowSearchResult ? search.results : []
           }
         }
       });
-      //函数防抖，输入最后一个字后指定时间再去执行搜索
-      yield put({
-        type: 'search',
-        payload: {
-          keyword
+
+      return {
+        keyword
+      };
+      //TODO 函数防抖，输入最后一个字后指定时间再去执行搜索
+      // if (isShowSearchResult) {
+      //   yield put({
+      //     type: 'search',
+      //     payload: {
+      //       keyword
+      //     }
+      //   });
+      // }
+
+
+    },
+    changeKeywordWatcher: [function*({take, put, call, cancel}) {
+      let task;
+      while (true) {
+        const {keyword} = yield take('changeKeyword');
+        if (task) {
+          yield cancel(task);
         }
-      });
-
-
-    }
-
+        task = yield fork(handleInput, keyword, put);
+      }
+    }, watcher]
   },
 
   reducers: {

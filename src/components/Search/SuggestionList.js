@@ -14,7 +14,7 @@ function SuggestionList(props) {
         <li key={index} className="suggestion-list-item" onMouseDown={() => selectResult(result)}>
           <span className="iconfont icon-music"></span>
           <span>{result.name}</span>
-          <span>{ result.artists.map(artist => artist.name).join(",")} </span>
+          <span>{result.artists.map(artist => artist.name).join(",")} </span>
         </li>
       )
     })

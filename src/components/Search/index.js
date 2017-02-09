@@ -33,7 +33,9 @@ function Search({dispatch, keyword, isShowSearchResult, results}) {
   return (
     <div className="nm-search-view">
       <span className="iconfont icon-search"></span>
-      <input type="search" placeholder="请输入..." value={keyword} onChange={(e) => changeKeyword(e.target.value)}/>
+      <input type="search" placeholder="请输入..."
+             value={keyword}
+             onChange={(e) => changeKeyword(e.target.value)}/>
       <SuggestionList className={resultsClass}
                       results={results}
                       selectResult={selectResult}

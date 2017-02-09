@@ -14,7 +14,7 @@ export async function getSongDetails(ids) {
   return request(`${NM_API_URL}/song/detail?ids=${urlencode(JSON.stringify((params)))}`);
 }
 
-export async function search({keyword, suggest = false, type = 1, offset = 0, limit = 100, sub = false}) {
+export async function search({keyword, suggest = false, type = 1, offset = 0, limit = 20, sub = false}) {
   let url = suggest ? `${NM_API_URL}/search/suggest/web` : `${NM_API_URL}/search/get/`;
   let data = {
     s: keyword,
