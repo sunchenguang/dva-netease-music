@@ -2,8 +2,10 @@
  * Created by suncg on 2017/2/7.
  */
 import React from "react";
-import classNames from "classnames";
+import classnames from "classnames";
 import SuggestionList from "./SuggestionList";
+import styles from "./index.less";
+
 
 function Search({dispatch, keyword, isShowSearchResult, results}) {
   function changeKeyword(keyword) {
@@ -25,14 +27,14 @@ function Search({dispatch, keyword, isShowSearchResult, results}) {
   }
 
 
-  let resultsClass = classNames('nm-suggestion-list-view', {
-    'nm-show': isShowSearchResult,
-    'nm-hide': !isShowSearchResult
+  let resultsClass = classnames({
+    [styles['nm-show']]: isShowSearchResult,
+    [styles['nm-hide']]: !isShowSearchResult
   });
-
   return (
-    <div className="nm-search-view">
-      <span className="iconfont icon-search"></span>
+    <div className={styles['nm-search-view']}>
+      {/*<span className={`${styles.iconfont} ${styles['icon-search']}`}></span>*/}
+      <span className={classnames(styles.iconfont, styles['icon-search'])}></span>
       <input type="search" placeholder="请输入..."
              value={keyword}
              onChange={(e) => changeKeyword(e.target.value)}/>

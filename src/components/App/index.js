@@ -6,12 +6,13 @@ import {connect} from "dva";
 import PlayLists from "../PlayLists";
 import Search from "../Search";
 // import '../base/normalize.less';
+import styles from "./index.less";
 
 function App(props) {
   const {playLists, selectedPlayListId, dispatch, search} = props;
   const {isShowSearchResult, keyword, results} = search;
   return (
-    <div className="nm-app">
+    <div className={styles['nm-app']}>
       <header>
         <h1>网易云音乐</h1>
         <Search keyword={keyword}

@@ -3,6 +3,7 @@
  */
 import React from "react";
 import classNames from "classnames";
+import styles from "./index.less";
 
 // import {Table, Pagination, Popconfirm, Button} from 'antd';
 
@@ -18,15 +19,15 @@ function PlayLists({dispatch, playLists, selectedPlayListId}) {
 
   let lines = playLists.map((playList) => {
     let id = playList.id;
-    let liClass = classNames('nm-play-list-item', {
-      'selected': id === selectedPlayListId
+    let liClass = classNames(styles['nm-play-list-item'], {
+      [styles.selected]: id === selectedPlayListId
     });
     return (
       <li key={id}
           className={liClass}
           onClick={changePlayList.bind(null, id)}
       >
-        <span className="icon iconfont icon-music"></span>
+        <span className={styles.icon + ' ' + styles.iconfont + ' ' + styles['icon-music']}></span>
         {playList.name}
       </li>
     )
@@ -34,7 +35,7 @@ function PlayLists({dispatch, playLists, selectedPlayListId}) {
 
 
   return (
-    <ul className="nm-play-list-view">
+    <ul className={styles["nm-play-list-view"]}>
       {lines}
     </ul>
   )
