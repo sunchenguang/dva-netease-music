@@ -17,7 +17,7 @@ function PlayLists({dispatch, playLists, selectedPlayListId}) {
     })
   }
 
-  let lines = playLists.map((playList) => {
+  let lines = playLists && playLists.map((playList) => {
     let id = playList.id;
     let liClass = classNames(styles['nm-play-list-item'], {
       [styles.selected]: id === selectedPlayListId
@@ -27,7 +27,7 @@ function PlayLists({dispatch, playLists, selectedPlayListId}) {
           className={liClass}
           onClick={changePlayList.bind(null, id)}
       >
-        <span className={styles.icon + ' ' + styles.iconfont + ' ' + styles['icon-music']}></span>
+        <span className='icon iconfont icon-music-2'></span>
         {playList.name}
       </li>
     )

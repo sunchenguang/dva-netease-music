@@ -8,7 +8,8 @@ export default {
     userId: '77680183',
     playLists: [],
     playListDetail: {},
-    selectedPlayListId: ''
+    selectedPlayListId: '',
+    songDetails: []
   },
 
   subscriptions: {
@@ -45,6 +46,12 @@ export default {
       });
       yield put({
         type: 'setSelectedPlayListId'
+      });
+      yield put({
+        type: 'getPlayListDetail',
+        payload: {
+          id: yield select(state => state.user.selectedPlayListId)
+        }
       })
     },
     /**
@@ -52,17 +59,40 @@ export default {
      * @param id
      * @param call
      * @param put
+     * @param select
      */
-      *getPlayListDetail({payload:{id}}, {call, put}){
+      *getPlayListDetail({payload:{id}}, {call, put, select}){
       const data = yield call(userService.getPlayListDetail, id);
       const playListDetail = data.data.result;
+      console.log(playListDetail)
       yield put({
-        type: 'save',
+        type: 'player/save',
         payload: {
-          playListDetail
+          trackInfo: {
+            name: playListDetail.name,
+            imgSrc: playListDetail.coverImgUrl,
+            artist: playListDetail.creator.nickname
+          }
         }
       })
 
+    },
+    /**
+     * 获取多首歌曲详情
+     * @param ids
+     * @param call
+     * @param put
+     */
+      * getSongDetails({payload:{ids}}, {call, put}) {  // eslint-disable-line
+      const data = yield call(songService.getSongDetails, ids);
+      let songDetails = data.data.songs;
+
+      yield put({
+        type: 'save',
+        payload: {
+          songDetails
+        }
+      });
     }
   },
 

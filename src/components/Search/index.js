@@ -10,7 +10,7 @@ import styles from "./index.less";
 function Search({dispatch, keyword, isShowSearchResult, results}) {
   function changeKeyword(keyword) {
     dispatch({
-      type: 'songs/changeKeyword',
+      type: 'search/changeKeyword',
       payload: {
         keyword
       }
@@ -19,7 +19,7 @@ function Search({dispatch, keyword, isShowSearchResult, results}) {
 
   function selectResult(result) {
     dispatch({
-      type: 'player/selectSearchResult',
+      type: 'search/selectSong',
       payload: {
         result
       }
@@ -33,16 +33,15 @@ function Search({dispatch, keyword, isShowSearchResult, results}) {
   });
   return (
     <div className={styles['nm-search-view']}>
-      {/*<span className={`${styles.iconfont} ${styles['icon-search']}`}></span>*/}
-      <span className={classnames(styles.iconfont, styles['icon-search'])}></span>
+      <span className='iconfont icon-search'></span>
+
       <input type="search" placeholder="请输入..."
              value={keyword}
              onChange={(e) => changeKeyword(e.target.value)}/>
       <SuggestionList className={resultsClass}
                       results={results}
-                      selectResult={selectResult}
-
-
+                      onSelect={selectResult}
+                      dispatch={dispatch}
       />
     </div>
 

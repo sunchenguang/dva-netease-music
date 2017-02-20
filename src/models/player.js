@@ -4,17 +4,13 @@
 // import * as songService from '../services/songs';
 
 export default {
-
   namespace: 'player',
-
   state: {
     selectedTrack: null,
     trackInfo: {
       imgSrc: '',
       name: '',
-      artist: '',
-      type: '',
-      mp3Url: ''
+      artist: ''
     },
     currentSong: {
       isPlaying: false,
@@ -66,6 +62,9 @@ export default {
     save(state, action) {
       return {...state, ...action.payload};
     },
+    // saveTrackInfo(state, action) {
+    //   return
+    // }
     // setCurrentTrack(state, action){
     //
     // }

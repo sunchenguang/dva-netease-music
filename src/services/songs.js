@@ -30,20 +30,4 @@ export async function search({keyword, suggest = false, type = 1, offset = 0, li
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
   });
-  // axios.post('/foo', qs.stringify({ 'bar': 123 });
-
-  // let result = await axios({
-  //   method: 'post',
-  //   url,
-  //   data: qs.stringify(data),
-  //   headers: {
-  //     'X-Requested-With': 'XMLHttpRequest',
-  //     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-  //
-  //   }
-  // })
-  // return {
-  //   data: result
-  // }
-
 }

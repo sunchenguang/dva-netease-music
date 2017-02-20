@@ -5,16 +5,16 @@ import React from "react";
 import {connect} from "dva";
 import PlayLists from "../PlayLists";
 import Search from "../Search";
-// import '../base/normalize.less';
+import TrackInfo from "../TrackInfo";
 import styles from "./index.less";
 
 function App(props) {
-  const {playLists, selectedPlayListId, dispatch, search} = props;
+  const {playLists, selectedPlayListId, dispatch, search, trackInfo} = props;
   const {isShowSearchResult, keyword, results} = search;
   return (
     <div className={styles['nm-app']}>
       <header>
-        <h1>网易云音乐</h1>
+        <div className={styles['netease-music-logo']}></div>
         <Search keyword={keyword}
                 isShowSearchResult={isShowSearchResult}
                 results={results}
@@ -30,6 +30,7 @@ function App(props) {
           />
         </aside>
         <section className="content">
+          <TrackInfo data={trackInfo}/>
 
         </section>
 

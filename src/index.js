@@ -5,7 +5,7 @@ import dva from "dva";
 const app = dva();
 
 app.model(require("./models/user"));
-app.model(require("./models/songs"));
+app.model(require("./models/search"));
 app.model(require("./models/player"));
 
 // 2. Plugins
