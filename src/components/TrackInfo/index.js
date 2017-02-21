@@ -10,13 +10,13 @@ function TrackInfo({data}) {
 
   return (
     <div className={styles['nm-track-info-view']}>
-      <div className="track-img"><img src={imgSrc}/></div>
-      <div className="track-info">
-        <div className="track-name">
+      <div className={styles['track-img']}><img src={imgSrc}/></div>
+      <div className={styles['track-info']}>
+        <div className={styles['track-name']}>
           <div className="iconfont icon-type-tag2"><label>{type}</label></div>
-          <span className="track-name-text">{name}</span>
+          <span className={styles['track-name-text']}>{name}</span>
         </div>
-        <div className="track-artists">{artist}</div>
+        <div className={styles['track-artists']}>{artist}</div>
         {/*<div className="operation-btn">*/}
         {/*<button className="icon icon-font icon-play-btn" onClick={playAllSongs}>播放全部</button>*/}
         {/*</div>*/}

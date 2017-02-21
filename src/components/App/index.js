@@ -6,10 +6,12 @@ import {connect} from "dva";
 import PlayLists from "../PlayLists";
 import Search from "../Search";
 import TrackInfo from "../TrackInfo";
+import TrackTable from "../TrackTable";
+import Player from "../Player";
 import styles from "./index.less";
 
 function App(props) {
-  const {playLists, selectedPlayListId, dispatch, search, trackInfo} = props;
+  const {playLists, selectedPlayListId, dispatch, search, trackInfo, playListDetail, selectedTrack} = props;
   const {isShowSearchResult, keyword, results} = search;
   return (
     <div className={styles['nm-app']}>
@@ -31,11 +33,18 @@ function App(props) {
         </aside>
         <section className="content">
           <TrackInfo data={trackInfo}/>
-
+          <TrackTable dispatch={dispatch}
+                      playListDetail={playListDetail}
+                      selectedTrack={selectedTrack}
+          />
         </section>
-
-
       </main>
+      <footer className={styles['lock']}>
+        <Player selectedTrack={selectedTrack}
+                dispatch={dispatch}
+        />
+
+      </footer>
 
 
     </div>

@@ -2,11 +2,23 @@
  * Created by suncg on 2017/2/7.
  */
 // import * as songService from '../services/songs';
+import TimeUtil from "../utils/tim";
 
 export default {
   namespace: 'player',
   state: {
-    selectedTrack: null,
+    selectedTrack: {
+      onPlayTrack: {},
+      playState: false,
+      duration: "/00:00",
+      currentTime: "00:00",
+      imgSrc: "",
+      artistName: "",
+      trackName: "未知",
+      mp3Url: "",
+      isMuted: false,
+      isLocked: false
+    },
     trackInfo: {
       imgSrc: '',
       name: '',
@@ -20,8 +32,7 @@ export default {
     imgSrc: '',
     artistName: '',
     trackName: '未知',
-    isReady: false,
-    isMuted: false
+    isReady: false
   },
 
   subscriptions: {
@@ -62,6 +73,24 @@ export default {
     save(state, action) {
       return {...state, ...action.payload};
     },
+    setSelectedTrack(state, action){
+      let track = action.payload.selectedTrack;
+      return {
+        ...state,
+        selectedTrack: {
+          ...state.selectedTrack,
+          onPlayTrack: track,
+          playState: true,
+          duration: "/" + TimeUtil.formateTime(track.lMusic ? track.lMusic.playTime : track.duration),
+          currentTime: "00:00",
+          imgSrc: track.album.blurPicUrl,
+          artistName: track.artists.map(artist => artist.name).join(","),
+          trackName: track.name,
+          mp3Url: track.mp3Url
+        }
+      }
+    }
+
     // saveTrackInfo(state, action) {
     //   return
     // }

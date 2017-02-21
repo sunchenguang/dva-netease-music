@@ -7,7 +7,7 @@ export default {
   state: {
     userId: '77680183',
     playLists: [],
-    playListDetail: {},
+    playListDetail: [],
     selectedPlayListId: '',
     songDetails: []
   },
@@ -74,7 +74,14 @@ export default {
             artist: playListDetail.creator.nickname
           }
         }
-      })
+      });
+
+      yield put({
+        type: 'save',
+        payload: {
+          playListDetail: playListDetail.tracks
+        }
+      });
 
     },
     /**
