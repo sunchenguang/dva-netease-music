@@ -2,7 +2,6 @@
  * Created by suncg on 2017/2/7.
  */
 // import * as songService from '../services/songs';
-import TimeUtil from "../utils/tim";
 
 export default {
   namespace: 'player',
@@ -10,8 +9,9 @@ export default {
     selectedTrack: {
       onPlayTrack: {},
       playState: false,
-      duration: "/00:00",
-      currentTime: "00:00",
+      duration: 0,
+      currentTime: 0,
+      currentTimeStr: '00:00',
       imgSrc: "",
       artistName: "",
       trackName: "未知",
@@ -81,12 +81,23 @@ export default {
           ...state.selectedTrack,
           onPlayTrack: track,
           playState: true,
-          duration: "/" + TimeUtil.formateTime(track.lMusic ? track.lMusic.playTime : track.duration),
-          currentTime: "00:00",
+          // duration: "/" + TimeUtil.formateTime(track.lMusic ? track.lMusic.playTime : track.duration),
+          duration: track.lMusic ? track.lMusic.playTime : track.duration,
+
+          currentTime: 0,
           imgSrc: track.album.blurPicUrl,
           artistName: track.artists.map(artist => artist.name).join(","),
           trackName: track.name,
           mp3Url: track.mp3Url
+        }
+      }
+    },
+    changeTrackState(state, action) {
+      return {
+        ...state,
+        selectedTrack: {
+          ...state.selectedTrack,
+          ...action.payload
         }
       }
     }
