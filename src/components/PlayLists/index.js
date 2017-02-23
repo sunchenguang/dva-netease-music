@@ -10,7 +10,7 @@ import styles from "./index.less";
 function PlayLists({dispatch, playLists, selectedPlayListId}) {
   function changePlayList(id) {
     dispatch({
-      type: 'user/setSelectedPlayListId',
+      type: 'user/getPlayListDetail',
       payload: {
         id
       }
@@ -18,20 +18,20 @@ function PlayLists({dispatch, playLists, selectedPlayListId}) {
   }
 
   let lines = playLists && playLists.map((playList) => {
-    let id = playList.id;
-    let liClass = classNames(styles['nm-play-list-item'], {
-      [styles.selected]: id === selectedPlayListId
+      let id = playList.id;
+      let liClass = classNames(styles['nm-play-list-item'], {
+        [styles.selected]: id === selectedPlayListId
+      });
+      return (
+        <li key={id}
+            className={liClass}
+            onClick={changePlayList.bind(null, id)}
+        >
+          <span className='icon iconfont icon-music-2'></span>
+          {playList.name}
+        </li>
+      )
     });
-    return (
-      <li key={id}
-          className={liClass}
-          onClick={changePlayList.bind(null, id)}
-      >
-        <span className='icon iconfont icon-music-2'></span>
-        {playList.name}
-      </li>
-    )
-  });
 
 
   return (

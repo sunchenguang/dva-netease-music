@@ -2,6 +2,7 @@
  * Created by suncg on 2017/2/7.
  */
 // import * as songService from '../services/songs';
+import {delay} from "../utils/sagaHelper";
 
 export default {
   namespace: 'player',
@@ -17,7 +18,8 @@ export default {
       trackName: "未知",
       mp3Url: "",
       isMuted: false,
-      isLocked: false
+      isLocked: false,
+      volume: 0.5
     },
     trackInfo: {
       imgSrc: '',
@@ -44,27 +46,23 @@ export default {
   effects: {
     * selectSearchResult({payload}, {call, put, select}){
       yield put({
-        type: 'songs/getSongDetails',
+        type: 'user/getSongDetails',
         payload: {
           ids: payload.result.id
         }
       });
-      let songs = yield select(state => state.songs.details);
+
+      yield call(delay, 1000);
+
+      let songs = yield select(state => state.user.songDetails);
       let song = songs[0];
 
       yield put({
-        type: 'save',
+        type: 'setSelectedTrack',
         payload: {
-          selectedTrack: song,
-          trackInfo: {
-            imgsrc: song.album.picUrl,
-            name: song.name,
-            artist: song.artists.map(artist => artist.name).join(","),
-            type: "单曲",
-            mp3Url: song.mp3Url
-          }
+          selectedTrack: song
         }
-      })
+      });
 
     }
   },

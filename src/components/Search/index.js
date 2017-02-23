@@ -19,7 +19,7 @@ function Search({dispatch, keyword, isShowSearchResult, results}) {
 
   function selectResult(result) {
     dispatch({
-      type: 'search/selectSong',
+      type: 'player/selectSearchResult',
       payload: {
         result
       }

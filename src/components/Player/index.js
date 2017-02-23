@@ -9,7 +9,7 @@ import TimeUtil from "../../utils/time";
 function Player(props) {
 
   const {dispatch, selectedTrack} = props;
-  let {playState, imgSrc, trackName, artistName, currentTime, duration, currentTimeStr, isMuted, isLocked, mp3Url} = selectedTrack;
+  let {playState, imgSrc, trackName, artistName, currentTime, duration, currentTimeStr, isMuted, isLocked, mp3Url, volume} = selectedTrack;
 
   let audio, timer;
   audio = document.querySelector('#audio');
@@ -21,6 +21,8 @@ function Player(props) {
   }
 
   function audioTimeUpdate() {
+    //audio.currentTime是以秒为单位
+    //传下来作为input[type=range]的值的currentTime是以毫秒为单位
     changeTrackState({
       currentTime: audio.currentTime * 1000,
       currentTimeStr: TimeUtil.formateTime(currentTime)
@@ -48,13 +50,21 @@ function Player(props) {
   }
 
   function changeVolume(e) {
-    audio.volume = parseFloat(e.target.value);
+    let volume = parseFloat(e.target.value);
+    audio.volume = volume;
+    changeTrackState({
+      volume
+    });
   }
 
   function changeProcess(e) {
-    // let value = parseFloat(e.target.value);
-    // audio.fastSeek(value);
-    // audio.currentTime = value
+    let currentTime = parseFloat(e.target.value);
+    audio.currentTime = currentTime / 1000;
+    changeTrackState({
+      currentTime,
+      currentTimeStr: TimeUtil.formateTime(currentTime)
+    });
+
   }
 
   return (
@@ -79,13 +89,9 @@ function Player(props) {
           <a className={styles['track-artist']}>{artistName}</a>
         </div>
         <div className={styles['foot']}>
-          {/*<div className={styles['track-process']}*/}
-          {/*>*/}
-          {/*<div className={styles['playingBar']}></div>*/}
-          {/*<span className={`${styles['point']} iconfont icon-bar`} draggable="true"></span>*/}
-          {/*</div>*/}
-          <div>
-            <input type="range" min={0} max={duration} step="any" value={currentTime} onChange={changeProcess}/>
+          <div className={styles.processWrap}>
+            <input type="range" min={0} max={duration} step="any" value={currentTime}
+                   onChange={changeProcess}/>
           </div>
           <div className={styles['track-time']}>{currentTimeStr + '/' + durationStr}</div>
         </div>
@@ -96,7 +102,7 @@ function Player(props) {
         >
         </a>
         <div>
-          <input type="range" min={0} max={1} step="any" value="0.5" onChange={changeVolume}/>
+          <input type="range" min={0} max={1} step="any" value={volume} onChange={changeVolume}/>
         </div>
       </div>
       <div className={styles['song-list']}>

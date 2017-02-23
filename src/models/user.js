@@ -1,4 +1,5 @@
 import * as userService from "../services/user";
+import * as songService from "../services/songs";
 
 export default {
 
@@ -65,6 +66,13 @@ export default {
       const data = yield call(userService.getPlayListDetail, id);
       const playListDetail = data.data.result;
       console.log(playListDetail)
+      yield put({
+        type: 'setSelectedPlayListId',
+        payload: {
+          id
+        }
+      });
+
       yield put({
         type: 'player/save',
         payload: {

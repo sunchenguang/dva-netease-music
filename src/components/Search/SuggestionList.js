@@ -8,13 +8,13 @@ function SuggestionList(props) {
   const {className, results, onSelect, dispatch} = props;
 
   function handleSelect(item) {
-    dispatch({
-      type: 'user/getSongDetails',
-      payload: {
-        ids: item.id
-      }
-    });
-    onSelect()
+    // dispatch({
+    //   type: 'user/getSongDetails',
+    //   payload: {
+    //     ids: item.id
+    //   }
+    // });
+    onSelect(item)
   }
 
 
