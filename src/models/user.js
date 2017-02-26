@@ -65,7 +65,6 @@ export default {
       *getPlayListDetail({payload:{id}}, {call, put, select}){
       const data = yield call(userService.getPlayListDetail, id);
       const playListDetail = data.data.result;
-      console.log(playListDetail)
       yield put({
         type: 'setSelectedPlayListId',
         payload: {

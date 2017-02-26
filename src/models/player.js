@@ -63,8 +63,21 @@ export default {
           selectedTrack: song
         }
       });
-
+    },
+    *changeSong({payload}, {call, put, select}) {
+      let direction = payload.direction;
+      let currentSong = yield select((state) => state.player.selectedTrack.onPlayTrack);
+      let songList = yield select(state => state.user.playListDetail);
+      let currentSongIndex = songList.indexOf(currentSong);
+      let newIndex = direction === 'prev' ? currentSongIndex - 1 : currentSongIndex + 1;
+      yield put({
+        type: "setSelectedTrack",
+        payload: {
+          selectedTrack: songList[newIndex]
+        }
+      })
     }
+
   },
 
   reducers: {

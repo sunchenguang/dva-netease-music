@@ -5,24 +5,13 @@ import React from "react";
 import styles from "./suggestionList.less";
 
 function SuggestionList(props) {
-  const {className, results, onSelect, dispatch} = props;
-
-  function handleSelect(item) {
-    // dispatch({
-    //   type: 'user/getSongDetails',
-    //   payload: {
-    //     ids: item.id
-    //   }
-    // });
-    onSelect(item)
-  }
-
+  const {className, results, selectResult} = props;
 
   let lines = [];
   if (results && results.length > 0) {
     results.map((result, index) => {
       lines.push(
-        <li key={index} className={styles["suggestion-list-item"]} onMouseDown={() => handleSelect(result)}>
+        <li key={index} className={styles["suggestion-list-item"]} onMouseDown={() => selectResult(result)}>
           <span className='iconfont icon-music'></span>
           <span>{result.name}</span>
           <span>{result.artists.map(artist => artist.name).join(",")} </span>

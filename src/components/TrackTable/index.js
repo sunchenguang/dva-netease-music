@@ -6,19 +6,8 @@ import styles from "./index.less";
 import TimeUtil from "../../utils/time";
 
 function TrackTable(props) {
-  const {dispatch, selectedTrack, playListDetail} = props;
-  const {id, name, artists} = selectedTrack;
-  // const album = selectedTrack.album.name;
-  // const timer = TimeUtil.formateTime(selectedTrack.lmusic ? selectedTrack.lMusic.playTime : selectedTrack.duration);
-
-  function selectTrack(selectedTrack) {
-    dispatch({
-      type: 'player/setSelectedTrack',
-      payload: {
-        selectedTrack
-      }
-    })
-  }
+  const {selectedTrack, playListDetail, selectTrack} = props;
+  const {id} = selectedTrack;
 
   function createItem(data, track) {
     const $tds = [];

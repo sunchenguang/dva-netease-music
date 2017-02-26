@@ -8,7 +8,7 @@ import TimeUtil from "../../utils/time";
 
 function Player(props) {
 
-  const {dispatch, selectedTrack} = props;
+  const {selectedTrack, changeTrackState, changeSong} = props;
   let {playState, imgSrc, trackName, artistName, currentTime, duration, currentTimeStr, isMuted, isLocked, mp3Url, volume} = selectedTrack;
 
   let audio, timer;
@@ -27,13 +27,6 @@ function Player(props) {
       currentTime: audio.currentTime * 1000,
       currentTimeStr: TimeUtil.formateTime(currentTime)
     })
-  }
-
-  function changeTrackState(payload) {
-    dispatch({
-      type: 'player/changeTrackState',
-      payload
-    });
   }
 
   function togglePlay() {
@@ -71,12 +64,14 @@ function Player(props) {
     <div className={styles['nm-player-view']}>
       <div className={styles['track-btns']}>
         <span className={`${styles.prev} iconfont icon-previous`}
+              onClick={() => changeSong('prev')}
         >
         </span>
         <span className={`${styles.play} iconfont ${playState ? 'icon-pause' : 'icon-play'}`}
               onClick={togglePlay}>
         </span>
         <span className={`${styles.next} iconfont icon-next`}
+              onClick={() => changeSong('next')}
         >
         </span>
       </div>

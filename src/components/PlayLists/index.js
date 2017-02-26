@@ -7,16 +7,7 @@ import styles from "./index.less";
 
 // import {Table, Pagination, Popconfirm, Button} from 'antd';
 
-function PlayLists({dispatch, playLists, selectedPlayListId}) {
-  function changePlayList(id) {
-    dispatch({
-      type: 'user/getPlayListDetail',
-      payload: {
-        id
-      }
-    })
-  }
-
+function PlayLists({playLists, selectedPlayListId, changePlayList}) {
   let lines = playLists && playLists.map((playList) => {
       let id = playList.id;
       let liClass = classNames(styles['nm-play-list-item'], {

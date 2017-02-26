@@ -5,8 +5,8 @@ import React from "react";
 import styles from "./index.less";
 
 
-function TrackInfo({data}) {
-  let {imgSrc, type = '单曲', name, artist} = data;
+function TrackInfo({trackInfo}) {
+  let {imgSrc, type = '单曲', name, artist} = trackInfo;
 
   return (
     <div className={styles['nm-track-info-view']}>
