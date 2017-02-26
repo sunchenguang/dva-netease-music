@@ -9,11 +9,14 @@ https://github.com/lilongllong/netease-music-react
 - Dva
 - Roadhog
 
-项目根目录下执行`npm start` 启动项目后会自动打开窗口`localhost:8000/app`
+项目根目录下执行`npm start` 启动项目后会自动打开窗口`localhost:8000`
 
-修改端口请到`package.json`中修改`npm start`命令
+修改端口
+```
+set PORT=3000 && npm start
+```
+详细的项目配置和管理请看`roadhog`官方文档`
 
-进行中。。。80%
 
 
 

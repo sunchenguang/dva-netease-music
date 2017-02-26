@@ -16,12 +16,10 @@ export default {
   subscriptions: {
     setup({dispatch, history}) {  // eslint-disable-line
       return history.listen(({pathname, query}) => {
-        if (pathname === '/app') {
-          dispatch({
-            type: 'getPlayLists',
-            payload: query
-          });
-        }
+        dispatch({
+          type: 'getPlayLists',
+          payload: query
+        });
       })
     },
   },
