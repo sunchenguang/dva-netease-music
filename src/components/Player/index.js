@@ -11,13 +11,17 @@ function Player(props) {
   const {selectedTrack, changeTrackState, changeSong} = props;
   let {playState, imgSrc, trackName, artistName, currentTime, duration, currentTimeStr, isMuted, isLocked, mp3Url, volume} = selectedTrack;
 
-  let audio, timer;
+  let audio;
   audio = document.querySelector('#audio');
 
   let durationStr = TimeUtil.formateTime(duration);
 
   if (audio) {
     audio.ontimeupdate = audioTimeUpdate;
+    //这里必须用on+eventName的方式进行事件绑定，否则该事件会重复执行多次
+    audio.onended = () => {
+      changeSong('next');
+    }
   }
 
   function audioTimeUpdate() {
