@@ -25,16 +25,7 @@ export default {
       imgSrc: '',
       name: '',
       artist: ''
-    },
-    currentSong: {
-      isPlaying: false,
-      duration: '/00:00',
-      currentTime: '00:00',
-    },
-    imgSrc: '',
-    artistName: '',
-    trackName: '未知',
-    isReady: false
+    }
   },
 
   subscriptions: {
