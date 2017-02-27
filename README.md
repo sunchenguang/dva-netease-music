@@ -20,7 +20,7 @@ set PORT=3000 && npm start
 详细的项目配置和管理请看`roadhog`官方文档`
 
 ### Dockerfile
-拥有Dockerfile可将项目部署到云平台，例如DaoCloud，或其他云平台  
+拥有Dockerfile可将项目部署到云平台，例如DaoCloud，或其他云平台。持续发布应用。
 该项目线上地址：
 http://suncg-dva-netease-music.daoapp.io
 
