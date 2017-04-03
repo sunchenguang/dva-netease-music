@@ -1,15 +1,16 @@
-import dva from "dva";
-import {browserHistory} from "dva/router";
+import dva from 'dva'
+import { browserHistory } from 'dva/router'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 // import "./index.css";
-
+injectTapEventPlugin()
 // 1. Initialize
 const app = dva({
   history: browserHistory
-});
+})
 
-app.model(require("./models/user"));
-app.model(require("./models/search"));
-app.model(require("./models/player"));
+app.model(require('./models/user'))
+app.model(require('./models/search'))
+app.model(require('./models/player'))
 
 // 2. Plugins
 // app.use({});
@@ -18,7 +19,7 @@ app.model(require("./models/player"));
 // app.model(require('./models/example'));
 
 // 4. Router
-app.router(require('./router'));
+app.router(require('./router'))
 
 // 5. Start
-app.start('#root');
+app.start('#root')

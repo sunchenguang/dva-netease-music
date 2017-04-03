@@ -1,33 +1,33 @@
 /**
  * Created by 80920 on 2017/2/6.
  */
-import request from "../utils/request";
-import urlencode from "urlencode";
-import {NM_API_URL} from "../constants";
-import qs from "qs";
+import request from '../utils/request'
+import urlencode from 'urlencode'
+import { NM_API_URL } from '../constants'
+import qs from 'qs'
 
-export async function getSongDetails(ids) {
-  let params = ids;
+export async function getSongDetails (ids) {
+  let params = ids
   if (!Array.isArray(ids)) {
-    params = [ids];
+    params = [ids]
   }
-  return request(`${NM_API_URL}/song/detail?ids=${urlencode(JSON.stringify((params)))}`);
+  return request(`${NM_API_URL}/song/detail?ids=${urlencode(JSON.stringify((params)))}`)
 }
 
-export async function search({keyword, suggest = false, type = 1, offset = 0, limit = 20, sub = false}) {
-  let url = suggest ? `${NM_API_URL}/search/suggest/web` : `${NM_API_URL}/search/get/`;
-  let data = {
+export async function search ({keyword, suggest = false, type = 1, offset = 0, limit = 20, sub = false}) {
+  const url = suggest ? `${NM_API_URL}/search/suggest/web` : `${NM_API_URL}/search/get/`
+  const data = {
     s: keyword,
     type,
     offset,
     limit,
     sub
-  };
+  }
   return request(url, {
     method: 'POST',
     body: qs.stringify(data),
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
-  });
+  })
 }

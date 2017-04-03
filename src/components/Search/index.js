@@ -1,45 +1,45 @@
 /**
  * Created by suncg on 2017/2/7.
  */
-import React from "react";
-import classnames from "classnames";
-import SuggestionList from "./SuggestionList";
-import styles from "./index.less";
+import AutoComplete from 'material-ui/AutoComplete'
+import styles from './index.less'
 
+function Search ({keyword, isShowSearchResult, results, changeKeyword, selectResult}) {
+  function handleSelectResult (chosenRequest, index) {
+    selectResult(chosenRequest.id)
+  }
 
-function Search({keyword, isShowSearchResult, results, changeKeyword, selectResult}) {
-  let resultsClass = classnames({
-    [styles['nm-show']]: isShowSearchResult,
-    [styles['nm-hide']]: !isShowSearchResult
-  });
-  let suggestionListProps = {
-    results,
-    selectResult
-  };
+  function handleUpdateInput (text) {
+    changeKeyword(text)
+  }
+
+  const dataSource = results.map((item, index) => {
+    return {
+      text: [item.name, item.artists.map(artist => artist.name).join(', ')].join(' '),
+      id: item.id
+    }
+  })
+  const dataSourceConfig = {
+    text: 'text',
+    value: 'id'
+  }
+
   return (
     <div className={styles['nm-search-view']}>
-      <span className='iconfont icon-search'></span>
-
-      <input type="search" placeholder="请输入..."
-             value={keyword}
-             onChange={(e) => changeKeyword(e.target.value)}/>
-      <SuggestionList className={resultsClass}
-                      {...suggestionListProps}
+      <span className={`iconfont icon-search ${styles['icon-search']}`}/>
+      <AutoComplete
+        hintText="请输入..."
+        searchText={keyword}
+        onUpdateInput={handleUpdateInput}
+        onNewRequest={handleSelectResult}
+        dataSource={dataSource}
+        maxSearchResults={10}
+        openOnFocus={true}
+        dataSourceConfig={dataSourceConfig}
       />
     </div>
 
   )
 }
 
-
-export default Search;
-
-
-
-
-
-
-
-
-
-
+export default Search

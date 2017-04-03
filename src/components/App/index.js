@@ -1,44 +1,46 @@
 /**
  * Created by suncg on 2017/2/7.
  */
-import React from "react";
-import {connect} from "dva";
-import PlayLists from "../PlayLists";
-import Search from "../Search";
-import TrackInfo from "../TrackInfo";
-import TrackTable from "../TrackTable";
-import Player from "../Player";
-import styles from "./index.less";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import PlayLists from '../PlayLists'
+import Search from '../Search'
+import TrackInfo from '../TrackInfo'
+import TrackTable from '../TrackTable'
+import Player from '../Player'
+import styles from './index.less'
 
-function App(props) {
-  const {playLists, selectedPlayListId, dispatch, search, trackInfo, playListDetail, selectedTrack} = props;
-  const {isShowSearchResult, keyword, results} = search;
+function App (props) {
+  const {
+    playLists, selectedPlayListId, dispatch, search, trackInfo,
+    playListDetail, selectedTrack
+  } = props
+  const {isShowSearchResult, keyword, results} = search
   const searchProps = {
     keyword,
     isShowSearchResult,
     results,
-    changeKeyword(keyword) {
+    changeKeyword (text) {
       dispatch({
         type: 'search/changeKeyword',
         payload: {
-          keyword
+          keyword: text
         }
       })
     },
-    selectResult(result) {
+    selectResult (id) {
       dispatch({
         type: 'player/selectSearchResult',
         payload: {
-          result
+          id
         }
       })
     }
-  };
+  }
 
   const playListsProps = {
     playLists,
     selectedPlayListId,
-    changePlayList(id) {
+    changePlayList (id) {
       dispatch({
         type: 'user/getPlayListDetail',
         payload: {
@@ -46,64 +48,64 @@ function App(props) {
         }
       })
     }
-  };
+  }
 
   const trackTableProps = {
     playListDetail,
     selectedTrack,
-    selectTrack(selectedTrack) {
+    selectTrack (track) {
       dispatch({
         type: 'player/setSelectedTrack',
         payload: {
-          selectedTrack
+          selectedTrack: track
         }
       })
     }
-  };
+  }
 
   const playerProps = {
     selectedTrack,
-    changeTrackState(payload) {
+    changeTrackState (payload) {
       dispatch({
         type: 'player/changeTrackState',
         payload
-      });
+      })
     },
-    changeSong(direction) {
+    changeSong (direction) {
       dispatch({
         type: 'player/changeSong',
         payload: {
           direction
         }
-      });
+      })
     }
-  };
-
+  }
 
   return (
-    <div className={styles['nm-app']}>
-      <header>
-        <div className={styles['netease-music-logo']}></div>
-        <Search {...searchProps} />
-      </header>
+    <MuiThemeProvider>
+      <div className={styles['nm-app']}>
+        <header>
+          <div className={styles['netease-music-logo']}/>
+          <Search {...searchProps} />
+        </header>
 
-      <main>
-        <aside className="sidebar">
-          <PlayLists {...playListsProps} />
-        </aside>
-        <section className="content">
-          <TrackInfo trackInfo={trackInfo}/>
-          <TrackTable {...trackTableProps}/>
-        </section>
-      </main>
-      <footer className={styles['lock']}>
-        <Player {...playerProps}/>
-      </footer>
-    </div>
+        <main>
+          <aside className="sidebar">
+            <PlayLists {...playListsProps} />
+          </aside>
+          <section className="content">
+            <TrackInfo trackInfo={trackInfo}/>
+            <TrackTable {...trackTableProps} />
+          </section>
+        </main>
+        <footer className={styles.lock}>
+          <Player {...playerProps} />
+        </footer>
+      </div>
+    </MuiThemeProvider>
   )
 }
 
+App.propTypes = {}
 
-App.propTypes = {};
-
-export default App;
+export default App

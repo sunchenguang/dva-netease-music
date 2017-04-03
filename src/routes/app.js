@@ -1,12 +1,10 @@
 /**
  * Created by suncg on 2017/2/7.
  */
-import React from "react";
-import {connect} from "dva";
-import AppDumb from "../components/App";
+import { connect } from 'dva'
+import AppDumb from '../components/App'
 
-
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     ...state.user,
     search: state.search,
@@ -15,7 +13,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(AppDumb);
-
-
-
+export default connect(mapStateToProps)(AppDumb)
