@@ -1,33 +1,38 @@
 /**
  * Created by 80920 on 2017/2/7.
  */
-import classNames from 'classnames'
-import styles from './index.less'
-
-// import {Table, Pagination, Popconfirm, Button} from 'antd';
+// import classNames from 'classnames'
+// import styles from './index.less'
+import SelectableList from './selectableList'
+import { ListItem } from 'material-ui/List'
+import ActionGrade from 'material-ui/svg-icons/action/grade'
 
 function PlayLists ({playLists, selectedPlayListId, changePlayList}) {
-  const lines = playLists && playLists.map((playList) => {
-      const id = playList.id
-      const liClass = classNames(styles['nm-play-list-item'], {
-        [styles.selected]: id === selectedPlayListId
-      })
-      return (
-        <li
-          key={id}
-          className={liClass}
-          onClick={changePlayList.bind(null, id)}
-        >
-          <span className="icon iconfont icon-music-2"/>
-          {playList.name}
-        </li>
-      )
-    })
+  function handleRequestChange (event, value) {
+    if (value) {
+      changePlayList(value)
+    }
+  }
 
   return (
-    <ul className={styles['nm-play-list-view']}>
-      {lines}
-    </ul>
+    <SelectableList
+      value={selectedPlayListId}
+      handleRequestChange={handleRequestChange}
+    >
+      {
+        playLists.map((item, index) => {
+          return (
+            <ListItem
+              key={item.id}
+              primaryText={item.name}
+              value={item.id}
+              leftIcon={<ActionGrade/>}
+            />
+          )
+        })
+      }
+
+    </SelectableList>
   )
 }
 

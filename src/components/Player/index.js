@@ -5,6 +5,7 @@
 import classnames from 'classnames'
 import styles from './index.less'
 import TimeUtil from '../../utils/time'
+import Slider from 'material-ui/Slider'
 
 function Player (props) {
   const {selectedTrack, changeTrackState, changeSong} = props
@@ -47,16 +48,16 @@ function Player (props) {
     })
   }
 
-  function changeVolume (e) {
-    const volume = parseFloat(e.target.value)
+  function changeVolume (e, value) {
+    const volume = value
     audio.volume = volume
     changeTrackState({
       volume
     })
   }
 
-  function changeProcess (e) {
-    const currentTime = parseFloat(e.target.value)
+  function changeProcess (e, value) {
+    const currentTime = value
     audio.currentTime = currentTime / 1000
     changeTrackState({
       currentTime,
@@ -90,9 +91,14 @@ function Player (props) {
         </div>
         <div className={styles.foot}>
           <div className={styles.processWrap}>
-            <input
-              type="range" min={0} max={duration} step="any" value={currentTime}
+            <Slider
+              min={0}
+              max={duration > 0 ? duration : 1}
+              defaultValue={0}
+              value={currentTime}
               onChange={changeProcess}
+              disabled={duration <= 0}
+              sliderStyle={{margin: '0'}}
             />
           </div>
           <div className={styles['track-time']}>{`${currentTimeStr}/${durationStr}`}</div>
@@ -103,8 +109,13 @@ function Player (props) {
           className={`${styles['track-volume']} iconfont ${isMuted ? 'icon-soundminus' : 'icon-soundplus'}`}
           onClick={toggleSound}
         />
-        <div>
-          <input type="range" min={0} max={1} step="any" value={volume} onChange={changeVolume}/>
+        <div style={{width: '100%'}}>
+          <Slider
+            value={volume}
+            onChange={changeVolume}
+            sliderStyle={{margin: '0'}}
+            disabled={isMuted}
+          />
         </div>
       </div>
       <div className={styles['song-list']}>
