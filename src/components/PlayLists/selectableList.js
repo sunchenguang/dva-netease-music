@@ -10,17 +10,15 @@ function wrapState (ComposedComponent) {
   return class SelectableList extends Component {
     static propTypes = {
       children: PropTypes.node.isRequired,
-    }
-
-    handleRequestChange = (event, index) => {
-      this.props.handleRequestChange(event, index)
+      value: PropTypes.any,
+      handleChange: PropTypes.func
     }
 
     render () {
       return (
         <ComposedComponent
           value={this.props.value}
-          onChange={this.handleRequestChange}
+          onChange={this.props.handleChange}
         >
           {this.props.children}
         </ComposedComponent>

@@ -8,7 +8,7 @@ import { ListItem } from 'material-ui/List'
 import ActionGrade from 'material-ui/svg-icons/action/grade'
 
 function PlayLists ({playLists, selectedPlayListId, changePlayList}) {
-  function handleRequestChange (event, value) {
+  function handleListChange (event, value) {
     if (value) {
       changePlayList(value)
     }
@@ -17,7 +17,7 @@ function PlayLists ({playLists, selectedPlayListId, changePlayList}) {
   return (
     <SelectableList
       value={selectedPlayListId}
-      handleRequestChange={handleRequestChange}
+      handleChange={handleListChange}
     >
       {
         playLists.map((item, index) => {
