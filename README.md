@@ -32,7 +32,7 @@ http://suncg-dva-netease-music.daoapp.io
 
 使用`material-ui`重构了搜索框，歌曲列表，进度条，声音条，歌单列表组件
 
-
+收集组件`PropTypes`内容，将其作为组件可视化文档直接展示，访问`/doc`即可
 
 
 

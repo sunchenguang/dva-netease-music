@@ -1,11 +1,17 @@
 /**
  * Created by 80920 on 2017/2/16.
  */
-import React from 'react'
+import React, { PropTypes } from 'react'
 // import styles from './index.less'
 import TimeUtil from '../../utils/time'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 
+/**
+ * 歌曲展示列表
+ * @param props
+ * @returns {XML}
+ * @constructor
+ */
 function TrackTable (props) {
   const {selectedTrack, playListDetail, selectTrack} = props
   const {id} = selectedTrack
@@ -78,6 +84,21 @@ function TrackTable (props) {
     </Table>
 
   )
+}
+
+TrackTable.propTypes = {
+  /**
+   * 被选中的歌曲
+   */
+  selectedTrack: PropTypes.object,
+  /**
+   * 当前播放列表详情
+   */
+  playListDetail: PropTypes.array,
+  /**
+   * 选择某歌曲的监听函数
+   */
+  selectTrack: PropTypes.func
 }
 
 export default TrackTable

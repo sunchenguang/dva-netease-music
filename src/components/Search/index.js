@@ -3,8 +3,18 @@
  */
 import AutoComplete from 'material-ui/AutoComplete'
 import styles from './index.less'
+import { PropTypes } from 'react'
 
-function Search ({keyword, isShowSearchResult, results, changeKeyword, selectResult}) {
+/**
+ * 搜索组件
+ * @param keyword
+ * @param results
+ * @param changeKeyword
+ * @param selectResult
+ * @returns {XML}
+ * @constructor
+ */
+function Search ({keyword, results, changeKeyword, selectResult}) {
   function handleSelectResult (chosenRequest, index) {
     selectResult(chosenRequest.id)
   }
@@ -42,4 +52,22 @@ function Search ({keyword, isShowSearchResult, results, changeKeyword, selectRes
   )
 }
 
+Search.propTypes = {
+  /**
+   * 搜索关键字
+   */
+  keyword: PropTypes.string,
+  /**
+   * 搜索结果
+   */
+  results: PropTypes.array,
+  /**
+   * 修改关键字（函数）
+   */
+  changeKeyword: PropTypes.func,
+  /**
+   * 选中某条搜索结果
+   */
+  selectResult: PropTypes.func
+}
 export default Search
