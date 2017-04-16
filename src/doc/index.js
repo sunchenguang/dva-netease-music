@@ -8,7 +8,6 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 class PropDoc extends Component {
-
   getPropDoc (componentCode) {
     let docObj = parse(componentCode)
     let props = docObj['props']

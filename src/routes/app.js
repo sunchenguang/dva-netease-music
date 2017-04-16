@@ -9,7 +9,6 @@ function mapStateToProps (state) {
     ...state.user,
     search: state.search,
     ...state.player
-    // details: state.songs.details
   }
 }
 

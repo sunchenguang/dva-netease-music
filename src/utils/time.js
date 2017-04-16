@@ -20,6 +20,16 @@ export default class TimeUtil {
     const mNum = (sCount - sNum) / 60
     return `${_digt2(mNum)}:${_digt2(sNum)}`
   }
+
+  static getSeconds (str) {
+    if (!str) {
+      return 10000
+    }
+    let [minutes, seconds] = str.split(':')
+    minutes = parseInt(minutes)
+    seconds = parseFloat(seconds)
+    return minutes * 60 + seconds
+  }
 }
 
 function _digt2 (num) {

@@ -1,7 +1,7 @@
 /**
  * Created by suncg on 2017/2/7.
  */
-// import * as songService from '../services/songs';
+import * as songService from '../services/songs'
 import { delay } from '../utils/sagaHelper'
 
 export default {
@@ -25,7 +25,9 @@ export default {
       imgSrc: '',
       name: '',
       artist: ''
-    }
+    },
+    lyrics: [],
+    isLyricOpen: true
   },
 
   subscriptions: {
@@ -65,6 +67,35 @@ export default {
         type: 'setSelectedTrack',
         payload: {
           selectedTrack: songList[newIndex]
+        }
+      })
+    },
+    * fetchLyric ({payload}, {call, put, select}) {
+      let lyric, lyrics
+      lyrics = []
+      const currentSong = yield select(state => state.player.selectedTrack.onPlayTrack)
+      if (currentSong) {
+        let songId = currentSong.id
+        lyric = yield call(songService.fetchLyric, songId)
+        lyric = lyric.data.lrc
+        console.log(lyric)
+      }
+      if (lyric) {
+        lyrics = lyric.lyric.split(/\r?\n/).map(item => {
+          const index = item.indexOf(']')
+          const time = item.slice(1, index)
+          const content = item.slice(index + 1)
+          return {
+            time,
+            content
+          }
+        })
+        lyrics = lyrics.filter(item => item.content !== '')
+      }
+      yield put({
+        type: 'save',
+        payload: {
+          lyrics
         }
       })
     }

@@ -53,7 +53,7 @@ PlayLists.propTypes = {
   /**
    * 被选中的歌单ID
    */
-  selectedPlayListId: PropTypes.string,
+  selectedPlayListId: PropTypes.any,
   /**
    * 修改播放列表 监听函数
    */

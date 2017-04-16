@@ -7,14 +7,17 @@ import Search from '../Search'
 import TrackInfo from '../TrackInfo'
 import TrackTable from '../TrackTable'
 import Player from '../Player'
+import PlayerSongList from '../PlayerSongList'
 import styles from './index.less'
 
 function App (props) {
   const {
     playLists, selectedPlayListId, dispatch, search, trackInfo,
-    playListDetail, selectedTrack
+    playListDetail, selectedTrack, lyrics, isLyricOpen
   } = props
   const {isShowSearchResult, keyword, results} = search
+  const {onPlayTrack, currentTimeStr: songTime} = selectedTrack
+  const {id: songId} = onPlayTrack
   const searchProps = {
     keyword,
     isShowSearchResult,
@@ -35,6 +38,15 @@ function App (props) {
         }
       })
     }
+  }
+
+  function toggleLyric () {
+    dispatch({
+      type: 'player/save',
+      payload: {
+        isLyricOpen: !isLyricOpen
+      }
+    })
   }
 
   const playListsProps = {
@@ -78,7 +90,24 @@ function App (props) {
           direction
         }
       })
-    }
+    },
+    toggleLyric
+  }
+
+  const lyricProps = {
+    fetchLyric () {
+      dispatch({
+        type: 'player/fetchLyric'
+      })
+    },
+    lyrics,
+    songId,
+    songTime
+  }
+
+  const playSongListProps = {
+    toggleLyric,
+    isLyricOpen
   }
 
   return (
@@ -100,6 +129,7 @@ function App (props) {
         </main>
         <footer className={styles.lock}>
           <Player {...playerProps} />
+          <PlayerSongList lyric={lyricProps} {...playSongListProps}/>
         </footer>
       </div>
     </MuiThemeProvider>

@@ -33,7 +33,7 @@ export default {
      * @param put
      * @param select
      */
-      *getPlayLists({payload:{limit, offset}}, {call, put, select}) {  // eslint-disable-line
+      *getPlayLists({payload: {limit, offset}}, {call, put, select}) {  // eslint-disable-line
       const uid = yield select(state => state.user.userId)
       const data = yield call(userService.getPlayLists, {uid, limit, offset})
       const playLists = data.data.playlist
@@ -94,7 +94,7 @@ export default {
      * @param call
      * @param put
      */
-      * getSongDetails({payload:{ids}}, {call, put}) {  // eslint-disable-line
+      * getSongDetails({payload: {ids}}, {call, put}) {  // eslint-disable-line
       const data = yield call(songService.getSongDetails, ids)
       const songDetails = data.data.songs
 

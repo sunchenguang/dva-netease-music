@@ -8,7 +8,7 @@ import TimeUtil from '../../utils/time'
 import Slider from 'material-ui/Slider'
 
 function Player (props) {
-  const {selectedTrack, changeTrackState, changeSong} = props
+  const {selectedTrack, changeTrackState, changeSong, toggleLyric} = props
   const {
     playState, imgSrc, trackName, artistName, currentTime, duration,
     currentTimeStr, isMuted, isLocked, mp3Url, volume
@@ -121,6 +121,7 @@ function Player (props) {
       <div className={styles['song-list']}>
         <a
           className={`${styles['songlist-icon']} iconfont icon-songlist`}
+          onClick={toggleLyric}
         />
         <a
           className={classnames(`${styles['player-lock-icon']}`, 'iconfont', (isLocked ? 'icon-lock' : 'icon-unlock'))}

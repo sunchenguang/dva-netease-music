@@ -31,3 +31,9 @@ export async function search ({keyword, suggest = false, type = 1, offset = 0, l
     }
   })
 }
+
+export async function fetchLyric (songId) {
+  // 'http://music.163.com/api/song/lyric?os=pc&id=' . $music_id . '&lv=-1&kv=-1&tv=-1'
+  const url = `api/song/lyric?os=pc&id=${songId}&lv=-1&kv=-1`
+  return request(url)
+}
