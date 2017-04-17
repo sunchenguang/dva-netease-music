@@ -26,11 +26,10 @@ class Lyric extends Component {
 
   componentDidUpdate (prevProps, prevState) {
     if (this.currentLyric) {
-      console.log('------did mount')
-      // scrollIntoViewIfNeeded(this.currentLyric, false, {
-      //   duration: 150,
-      //   easing: 'easeInOut'
-      // })
+      if (!this.oldLyric || this.oldLyric !== this.currentLyric) {
+        this.oldLyric = this.currentLyric
+        this.currentLyric.scrollIntoView()
+      }
     }
   }
 
