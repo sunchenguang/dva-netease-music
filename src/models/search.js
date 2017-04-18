@@ -23,7 +23,7 @@ export default {
      * @param put
      * @param select
      */
-      * search ({payload}, {call, put, select}) {
+    * search ({payload}, {call, put, select}) {
       const data = yield call(songService.search, {...payload})
       const results = data.data.result.songs
       yield put({

@@ -3,6 +3,7 @@
  */
 import * as songService from '../services/songs'
 import { delay } from '../utils/sagaHelper'
+import SongUtil from '../utils/song'
 
 export default {
   namespace: 'player',
@@ -27,7 +28,8 @@ export default {
       artist: ''
     },
     lyrics: [],
-    isLyricOpen: true
+    isLyricOpen: true,
+    songList: []
   },
 
   subscriptions: {
@@ -78,7 +80,6 @@ export default {
         let songId = currentSong.id
         lyric = yield call(songService.fetchLyric, songId)
         lyric = lyric.data.lrc
-        console.log(lyric)
       }
       if (lyric) {
         lyrics = lyric.lyric.split(/\r?\n/).map(item => {
@@ -106,23 +107,35 @@ export default {
     save (state, action) {
       return {...state, ...action.payload}
     },
+    // 设置当前歌曲时将其加入已选歌曲
     setSelectedTrack (state, action) {
-      const track = action.payload.selectedTrack
+      let track = action.payload.selectedTrack
+      let oldSongList = state.songList
+      let newSongList = []
+      track = SongUtil.getSongInfo(track)
+      let trackIndex = oldSongList.findIndex((item, index) => {
+        return item.id === track.id
+      })
+      if (trackIndex === -1) {
+        newSongList = [track].concat(oldSongList)
+      } else {
+        newSongList = oldSongList
+      }
+
       return {
         ...state,
         selectedTrack: {
           ...state.selectedTrack,
           onPlayTrack: track,
           playState: true,
-          // duration: "/" + TimeUtil.formateTime(track.lMusic ? track.lMusic.playTime : track.duration),
           duration: track.lMusic ? track.lMusic.playTime : track.duration,
-
           currentTime: 0,
           imgSrc: track.album.blurPicUrl,
           artistName: track.artists.map(artist => artist.name).join(','),
           trackName: track.name,
           mp3Url: track.mp3Url
-        }
+        },
+        songList: newSongList
       }
     },
     changeTrackState (state, action) {
@@ -134,14 +147,5 @@ export default {
         }
       }
     }
-
-    // saveTrackInfo(state, action) {
-    //   return
-    // }
-    // setCurrentTrack(state, action){
-    //
-    // }
-
   }
-
 }

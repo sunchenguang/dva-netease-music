@@ -2,7 +2,7 @@
  * Created by 80920 on 2017/4/4.
  */
 import React, { Component, PropTypes } from 'react'
-import { List, ListItem, makeSelectable } from 'material-ui/List'
+import { List, makeSelectable } from 'material-ui/List'
 
 let SelectableList = makeSelectable(List)
 

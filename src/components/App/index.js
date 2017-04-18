@@ -13,7 +13,7 @@ import styles from './index.less'
 function App (props) {
   const {
     playLists, selectedPlayListId, dispatch, search, trackInfo,
-    playListDetail, selectedTrack, lyrics, isLyricOpen
+    playListDetail, selectedTrack, lyrics, isLyricOpen, songList
   } = props
   const {isShowSearchResult, keyword, results} = search
   const {onPlayTrack, currentTimeStr: songTime} = selectedTrack
@@ -49,6 +49,15 @@ function App (props) {
     })
   }
 
+  function selectTrack (track) {
+    dispatch({
+      type: 'player/setSelectedTrack',
+      payload: {
+        selectedTrack: track
+      }
+    })
+  }
+
   const playListsProps = {
     playLists,
     selectedPlayListId,
@@ -65,14 +74,7 @@ function App (props) {
   const trackTableProps = {
     playListDetail,
     selectedTrack,
-    selectTrack (track) {
-      dispatch({
-        type: 'player/setSelectedTrack',
-        payload: {
-          selectedTrack: track
-        }
-      })
-    }
+    selectTrack
   }
 
   const playerProps = {
@@ -107,7 +109,18 @@ function App (props) {
 
   const playSongListProps = {
     toggleLyric,
-    isLyricOpen
+    isLyricOpen,
+    playingTrack: onPlayTrack,
+    songList,
+    clearSongList: () => {
+      dispatch({
+        type: 'player/save',
+        payload: {
+          songList: []
+        }
+      })
+    },
+    selectTrack
   }
 
   return (

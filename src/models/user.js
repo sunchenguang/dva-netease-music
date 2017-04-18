@@ -34,25 +34,25 @@ export default {
      * @param select
      */
       *getPlayLists({payload: {limit, offset}}, {call, put, select}) {  // eslint-disable-line
-      const uid = yield select(state => state.user.userId)
-      const data = yield call(userService.getPlayLists, {uid, limit, offset})
-      const playLists = data.data.playlist
-      yield put({
-        type: 'save',
-        payload: {
-          playLists
-        }
-      })
-      yield put({
-        type: 'setSelectedPlayListId'
-      })
-      yield put({
-        type: 'getPlayListDetail',
-        payload: {
-          id: yield select(state => state.user.selectedPlayListId)
-        }
-      })
-    },
+        const uid = yield select(state => state.user.userId)
+        const data = yield call(userService.getPlayLists, {uid, limit, offset})
+        const playLists = data.data.playlist
+        yield put({
+          type: 'save',
+          payload: {
+            playLists
+          }
+        })
+        yield put({
+          type: 'setSelectedPlayListId'
+        })
+        yield put({
+          type: 'getPlayListDetail',
+          payload: {
+            id: yield select(state => state.user.selectedPlayListId)
+          }
+        })
+      },
     /**
      * 获取歌单详情
      * @param id
@@ -60,7 +60,7 @@ export default {
      * @param put
      * @param select
      */
-      * getPlayListDetail ({payload: {id}}, {call, put, select}) {
+    * getPlayListDetail ({payload: {id}}, {call, put, select}) {
       const data = yield call(userService.getPlayListDetail, id)
       const playListDetail = data.data.result
       yield put({
@@ -95,16 +95,16 @@ export default {
      * @param put
      */
       * getSongDetails({payload: {ids}}, {call, put}) {  // eslint-disable-line
-      const data = yield call(songService.getSongDetails, ids)
-      const songDetails = data.data.songs
+        const data = yield call(songService.getSongDetails, ids)
+        const songDetails = data.data.songs
 
-      yield put({
-        type: 'save',
-        payload: {
-          songDetails
-        }
-      })
-    }
+        yield put({
+          type: 'save',
+          payload: {
+            songDetails
+          }
+        })
+      }
   },
 
   reducers: {
