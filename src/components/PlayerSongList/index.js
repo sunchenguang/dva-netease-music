@@ -50,18 +50,6 @@ class PlayerSongList extends Component {
     return null
   }
 
-  handleSelectionChange = () => {
-
-  }
-
-  clearAllSongList = () => {
-
-  }
-
-  toggle = () => {
-
-  }
-
   render () {
     const songCount = this.props.songList.length || 0
     let containerClass = this.props.isLyricOpen ? '' : 'nm-hide'
