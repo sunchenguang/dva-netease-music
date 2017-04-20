@@ -12,7 +12,8 @@ https://github.com/lilongllong/netease-music-react
 - Redux
 - Material-ui
 
-项目根目录下执行`npm start` 启动项目后会自动打开窗口`localhost:8000`
+项目根目录下执行`npm start` 启动项目后会自动打开窗口`localhost:8000`  
+收集了不同组件`PropTypes`内容，将其作为组件可视化文档直接展示，访问`localhost:8000/doc`即可
 
 修改端口
 ```
@@ -32,7 +33,6 @@ http://suncg-dva-netease-music.daoapp.io
 
 使用`material-ui`重构了搜索框，歌曲列表，进度条，声音条，歌单列表组件
 
-收集组件`PropTypes`内容，将其作为组件可视化文档直接展示，访问`/doc`即可
 
 
 

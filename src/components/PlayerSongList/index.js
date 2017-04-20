@@ -43,9 +43,11 @@ class PlayerSongList extends Component {
           </tr>
         )
       })
-      return (<table>
-        <tbody>{result}</tbody>
-      </table>)
+      return (
+        <table>
+          <tbody>{result}</tbody>
+        </table>
+      )
     }
     return null
   }

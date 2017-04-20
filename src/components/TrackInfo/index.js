@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import styles from './index.less'
+import RaisedButton from 'material-ui/RaisedButton';
 
 function TrackInfo ({trackInfo}) {
   const {imgSrc, type = '单曲', name, artist} = trackInfo
@@ -12,7 +13,7 @@ function TrackInfo ({trackInfo}) {
       <div className={styles['track-img']}><img src={imgSrc}/></div>
       <div className={styles['track-info']}>
         <div className={styles['track-name']}>
-          <div className="iconfont icon-type-tag2"><label>{type}</label></div>
+          <RaisedButton label={type} primary={true} />
           <span className={styles['track-name-text']}>{name}</span>
         </div>
         <div className={styles['track-artists']}>{artist}</div>

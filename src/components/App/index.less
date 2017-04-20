@@ -52,6 +52,8 @@ html, body, #root {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    z-index: 2;
 
     > .netease-music-logo {
       display: block;
@@ -76,6 +78,7 @@ html, body, #root {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-top: 60px;
     > aside {
       flex: 0 1 @nm-app-sidebar-width;
       padding: 0;
@@ -84,11 +87,14 @@ html, body, #root {
       border-right: 1px solid @nm-separate-color;
       overflow-y: auto;
       background: @nm-app-darker-bg;
+      position: fixed;
+      left: 0;
     }
 
     > section {
       flex: 1 1 @nm-app-base-height;
       overflow-y: auto;
+      margin-left: 340px;
 
     }
   }
