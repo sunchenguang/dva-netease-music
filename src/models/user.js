@@ -1,17 +1,20 @@
 import * as userService from '../services/user'
 import * as songService from '../services/songs'
+import Immutable from 'immutable'
+
+const initialState = Immutable.fromJS({
+  userId: '77680183',
+  playLists: [],
+  playListDetail: [],
+  selectedPlayListId: '',
+  songDetails: []
+})
 
 export default {
 
   namespace: 'user',
 
-  state: {
-    userId: '77680183',
-    playLists: [],
-    playListDetail: [],
-    selectedPlayListId: '',
-    songDetails: []
-  },
+  state: initialState,
 
   subscriptions: {
     setup({dispatch, history}) {  // eslint-disable-line
@@ -34,25 +37,25 @@ export default {
      * @param select
      */
       *getPlayLists({payload: {limit, offset}}, {call, put, select}) {  // eslint-disable-line
-        const uid = yield select(state => state.user.userId)
-        const data = yield call(userService.getPlayLists, {uid, limit, offset})
-        const playLists = data.data.playlist
-        yield put({
-          type: 'save',
-          payload: {
-            playLists
-          }
-        })
-        yield put({
-          type: 'setSelectedPlayListId'
-        })
-        yield put({
-          type: 'getPlayListDetail',
-          payload: {
-            id: yield select(state => state.user.selectedPlayListId)
-          }
-        })
-      },
+      const uid = yield select(state => state.user.get('userId'))
+      const data = yield call(userService.getPlayLists, {uid, limit, offset})
+      const playLists = data.data.playlist
+      yield put({
+        type: 'save',
+        payload: {
+          playLists
+        }
+      })
+      yield put({
+        type: 'setSelectedPlayListId'
+      })
+      yield put({
+        type: 'getPlayListDetail',
+        payload: {
+          id: yield select(state => state.user.get('selectedPlayListId'))
+        }
+      })
+    },
     /**
      * 获取歌单详情
      * @param id
@@ -60,7 +63,7 @@ export default {
      * @param put
      * @param select
      */
-    * getPlayListDetail ({payload: {id}}, {call, put, select}) {
+      * getPlayListDetail ({payload: {id}}, {call, put, select}) {
       const data = yield call(userService.getPlayListDetail, id)
       const playListDetail = data.data.result
       yield put({
@@ -95,25 +98,27 @@ export default {
      * @param put
      */
       * getSongDetails({payload: {ids}}, {call, put}) {  // eslint-disable-line
-        const data = yield call(songService.getSongDetails, ids)
-        const songDetails = data.data.songs
+      const data = yield call(songService.getSongDetails, ids)
+      const songDetails = data.data.songs
 
-        yield put({
-          type: 'save',
-          payload: {
-            songDetails
-          }
-        })
-      }
+      yield put({
+        type: 'save',
+        payload: {
+          songDetails
+        }
+      })
+    }
   },
 
   reducers: {
     save (state, action) {
-      return {...state, ...action.payload}
+      return state.merge(action.payload)
     },
     setSelectedPlayListId (state, action) {
-      const selectedPlayListId = action.payload && action.payload.id ? action.payload.id : state.playLists[0].id
-      return {...state, selectedPlayListId}
+      const selectedPlayListId = action.payload && action.payload.id ? action.payload.id : state.getIn(['playLists', 0, 'id'])
+      return state.merge({
+        selectedPlayListId
+      })
     }
   }
 

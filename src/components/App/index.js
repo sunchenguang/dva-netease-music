@@ -12,10 +12,12 @@ import styles from './index.less'
 
 function App (props) {
   const {
-    playLists, selectedPlayListId, dispatch, search, trackInfo,
-    playListDetail, selectedTrack, lyrics, isLyricOpen, songList
+    dispatch, search, user, player
   } = props
   const {isShowSearchResult, keyword, results} = search
+  const {playLists, playListDetail, selectedPlayListId} = user
+  const {selectedTrack, trackInfo, lyrics, isLyricOpen, songList} = player
+
   const {onPlayTrack, currentTimeStr: songTime} = selectedTrack
   const {id: songId} = onPlayTrack
   const searchProps = {
@@ -73,7 +75,7 @@ function App (props) {
 
   const trackTableProps = {
     playListDetail,
-    selectedTrack,
+    selectedTrack: onPlayTrack,
     selectTrack
   }
 

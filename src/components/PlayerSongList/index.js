@@ -23,16 +23,15 @@ class PlayerSongList extends Component {
   createSongTable () {
     let {songList, playingTrack} = this.props
     if (songList) {
-      const result = songList.map(item => {
+      const result = songList.map((item, index) => {
         let isActive = false
         if (playingTrack && playingTrack.id === item.id) {
           isActive = true
         }
         return (
-          <tr
-            key={item.id}
-            onClick={this.props.selectTrack.bind(null, item)}
-            className={`${isActive ? styles['active'] : ''}`}
+          <tr key={index}
+              onClick={this.props.selectTrack.bind(null, item)}
+              className={`${isActive ? styles['active'] : ''}`}
           >
             <td className={styles['playing-icon']}>
               <span className={(isActive ? 'iconfont icon-playing-triangle' : '')}/>

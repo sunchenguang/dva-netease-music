@@ -2,14 +2,18 @@
  * Created by 80920 on 2017/2/20.
  */
 import * as songService from '../services/songs'
+import Immutable from 'immutable'
+
+const initialState = Immutable.fromJS({
+  isShowSearchResult: false,
+  results: [],
+  keyword: ''
+})
+
 
 export default {
   namespace: 'search',
-  state: {
-    isShowSearchResult: false,
-    results: [],
-    keyword: ''
-  },
+  state: initialState,
   subscriptions: {
     setup({dispatch, history}) {  // eslint-disable-line
 
@@ -79,10 +83,7 @@ export default {
 
   reducers: {
     save (state, action) {
-      return {...state, ...action.payload}
+      return state.merge(action.payload)
     }
-    // changeKeyword(state, action){
-    //   return {}
-    // }
   }
 }

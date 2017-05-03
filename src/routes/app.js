@@ -3,13 +3,14 @@
  */
 import { connect } from 'dva'
 import AppDumb from '../components/App'
+import {convertDumb} from '../utils/immutableHelpers'
 
 function mapStateToProps (state) {
   return {
-    ...state.user,
+    user: state.user,
     search: state.search,
-    ...state.player
+    player: state.player
   }
 }
 
-export default connect(mapStateToProps)(AppDumb)
+export default connect(mapStateToProps)(convertDumb(AppDumb))
